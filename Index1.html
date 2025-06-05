@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>BloomArt - Artistic Flower Shop</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;500;700&display=swap');
+
+  :root {
+    --primary-color: #e85d75;
+    --secondary-color: #f4d9e0;
+    --accent-color: #a3686c;
+    --background-gradient: linear-gradient(135deg, #fbecec 0%, #ffefe8 100%);
+    --text-color: #4a3c3c;
+    --shadow-color: rgba(232, 93, 117, 0.4);
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: var(--background-gradient);
+    color: var(--text-color);
+    overflow-x: hidden;
+  }
+
+  header {
+    background: rgba(232, 93, 117, 0.85);
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    box-shadow: 0 2px 10px var(--shadow-color);
+  }
+
+  header .logo {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2.5rem;
+    color: white;
+    letter-spacing: 2px;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+    user-select: none;
+  }
+
+  nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 2rem;
+    font-weight: 500;
+    position: relative;
+    transition: color 0.3s ease;
+  }
+
+  nav a::after {
+    content: '';
+    display: block;
+    height: 2px;
+    background: white;
+    width: 0;
+    transition: width 0.3s ease;
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+  }
+
+  nav a:hover {
+    color: var(--secondary-color);
+  }
+
+  nav a:hover::after {
+    width: 100%;
+  }
+
+  /* Hero Section */
+  .hero {
+    min-height: 70vh;
+    display: flex;
+    background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80') center/cover no-repeat;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    text-align: center;
+    padding: 0 1rem;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(232, 93, 117, 0.5);
+    mix-blend-mode: multiply;
+  }
+
+  .hero-content {
+    position: relative;
+    max-width: 700px;
+    color: white;
+    z-index: 1;
+  }
+
+  .hero-content h1 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 4rem;
+    margin-bottom: 0.2rem;
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+  }
+
+  .hero-content p {
+    font-size: 1.3rem;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+    text-shadow: 1px 1px 6px rgba(0,0,0,0.3);
+  }
+
+  /* Filters */
+  .filters {
+    display: flex;
+    justify-content: center;
+    padding: 1.5rem 1rem;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .filters button {
+    background: var(--secondary-color);
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 0.5rem 1.3rem;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(232, 93, 117, 0.25);
+  }
+
+  .filters button:hover,
+  .filters button.active {
+    background: var(--primary-color);
+    color: white;
+    box-shadow: 0 6px 15px rgba(232, 93, 117, 0.7);
+    transform: scale(1.1);
+  }
+
+  /* Products Grid */
+  .product-grid {
+    max-width: 1200px;
+    margin: 0 auto 3rem;
+    padding: 0 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+  }
+
+  .product-card {
+    background: white;
+    border-radius: 18px;
+    box-shadow: 0 10px 20px rgba(168, 117, 120, 0.2);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .product-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 15px 30px rgba(232, 93, 117, 0.4);
+  }
+
+  .product-image {
+    width: 100%;
+    height: 220px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 18px 18px 0 0;
+    transition: transform 0.4s ease;
+  }
+
+  .product-card:hover .product-image {
+    transform: scale(1.08);
+  }
+
+  .product-info {
+    padding: 1rem 1.5rem 1.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .product-name {
+    font-weight: 700;
+    font-size: 1.3rem;
+    margin: 0 0 0.3rem 0;
+    color: var(--primary-color);
+  }
+
+  .product-description {
+    font-weight: 300;
+    font-size: 0.95rem;
+    color: #6c5153;
+    flex-grow: 1;
+  }
+
+  .product-price {
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin-top: 0.8rem;
+    color: var(--accent-color);
+  }
+
+  /* Star Rating */
+  .star-rating {
+    margin-top: 0.8rem;
+    display: flex;
+    align-items: center;
+  }
+
+  .star {
+    font-size: 1.5rem;
+    color: #e3c1cb;
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.2s ease;
+  }
+
+  .star.filled {
+    color: var(--primary-color);
+  }
+
+  .star:hover,
+  .star:hover ~ .star {
+    color: #f5b8c0;
+    transform: scale(1.2);
+  }
+
+  /* About Us Section */
+  .about-us {
+    background: white;
+    max-width: 900px;
+    margin: 3rem auto;
+    padding: 2rem 1.5rem;
+    border-radius: 24px;
+    box-shadow: 0 8px 20px rgba(232, 93, 117, 0.15);
+    text-align: center;
+  }
+
+  .about-us h2 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+  }
+
+  .about-us p {
+    font-weight: 300;
+    font-size: 1.2rem;
+    color: #6c5153;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  /* Testimonials Section */
+  .testimonials {
+    max-width: 900px;
+    margin: 3rem auto 4rem;
+    background: var(--secondary-color);
+    border-radius: 24px;
+    padding: 2rem 2rem 3rem;
+    box-shadow: 0 8px 20px rgba(232, 93, 117, 0.25);
+  }
+
+  .testimonials h2 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 3rem;
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .testimonial-slider {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .testimonial-cards {
+    display: flex;
+    gap: 1.5rem;
+    transition: transform 0.6s ease;
+  }
+
+  .testimonial-card {
+    background: white;
+    flex: 1 0 280px;
+    border-radius: 18px;
+    padding: 1.5rem 1.8rem;
+    box-shadow: 0 5px 15px rgba(168, 117, 120, 0.15);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .testimonial-text {
+    font-size: 1rem;
+    font-style: italic;
+    color: #755454;
+    margin-bottom: 1rem;
+    line-height: 1.4;
+  }
+
+  .testimonial-author {
+    font-weight: 700;
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    text-align: right;
+  }
+
+  .testimonial-nav {
+    text-align: center;
+    margin-top: 1rem;
+  }
+
+  .testimonial-nav button {
+    background: var(--primary-color);
+    border: none;
+    color: white;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 0.5rem 1.2rem;
+    border-radius: 30px;
+    cursor: pointer;
+    margin: 0 0.7rem;
+    box-shadow: 0 6px 15px rgba(232, 93, 117, 0.7);
+    transition: background-color 0.3s ease;
+  }
+
+  .testimonial-nav button:hover {
+    background: #d03e53;
+  }
+
+  /* Newsletter */
+  .newsletter {
+    background: white;
+    max-width: 600px;
+    margin: 3rem auto 4rem;
+    padding: 2rem 2.5rem;
+    box-shadow: 0 8px 20px rgba(232, 93, 117, 0.2);
+    border-radius: 24px;
+    text-align: center;
+  }
+
+  .newsletter h2 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2.8rem;
+    margin-bottom: 0.8rem;
+    color: var(--primary-color);
+  }
+
+  .newsletter p {
+    font-weight: 300;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    color: #6c5153;
+  }
+
+  .newsletter form {
+    display: flex;
+    justify-content: center;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+  }
+
+  .newsletter input[type="email"] {
+    padding: 0.7rem 1rem;
+    border-radius: 50px;
+    border: 2px solid var(--primary-color);
+    font-size: 1rem;
+    flex-grow: 1;
+    min-width: 250px;
+    transition: border-color 0.3s ease;
+  }
+
+  .newsletter input[type="email"]:focus {
+    outline: none;
+    border-color: var(--accent-color);
+  }
+
+  .newsletter button {
+    background: var(--primary-color);
+    border: none;
+    color: white;
+    font-weight: 700;
+    padding: 0.68rem 1.7rem;
+    font-size: 1rem;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 6px 15px rgba(232, 93, 117, 0.7);
+    transition: background-color 0.3s ease;
+  }
+
+  .newsletter button:hover {
+    background: #d03e53;
+  }
+
+  /* Footer */
+  footer {
+    background: var(--primary-color);
+    color: white;
+    text-align: center;
+    padding: 2rem 1rem;
+    font-weight: 300;
+    user-select: none;
+  }
+
+  footer a {
+    color: white;
+    text-decoration: none;
+    margin: 0 0.75rem;
+    font-weight: 700;
+  }
+
+  /* Animations */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-out;
+  }
+
+  .fade-in.visible {
+    animation-name: fadeInUp;
+    animation-duration: 1s;
+  }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 480px) {
+    .hero-content h1 {
+      font-size: 2.8rem;
+    }
+    nav a {
+      margin-left: 1rem;
+      font-size: 0.9rem;
+    }
+    .star {
+      font-size: 1.3rem;
+    }
+    .testimonial-cards {
+      flex-direction: column;
+    }
+    .testimonial-card {
+      flex: none;
+      margin-bottom: 1rem;
+    }
+    .newsletter form {
+      flex-direction: column;
+    }
+    .newsletter input[type="email"] {
+      min-width: auto;
+      width: 100%;
+    }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="logo" aria-label="BloomArt Flower Shop">BloomArt</div>
+  <nav role="navigation" aria-label="Primary Navigation">
+    <a href="#home" tabindex="0">Home</a>
+    <a href="#about" tabindex="0">About Us</a>
+    <a href="#products" tabindex="0">Flowers</a>
+    <a href="#testimonials" tabindex="0">Testimonials</a>
+    <a href="#newsletter" tabindex="0">Newsletter</a>
+    <a href="#contact" tabindex="0">Contact</a>
+  </nav>
+</header>
+
+<section class="hero" id="home" role="banner" aria-label="Welcome banner with flowers">
+  <div class="hero-content fade-in" tabindex="0">
+    <h1>BloomArt</h1>
+    <p>Experience the art of nature with our beautiful flowers</p>
+  </div>
+</section>
+
+<section id="about" class="about-us fade-in" tabindex="0" role="region" aria-label="About Our Flower Shop">
+  <h2>About Us</h2>
+  <p>
+    At BloomArt, we believe flowers are more than nature’s gift — they’re living works of art. Each bouquet is hand-curated with passion, blossoming beauty and elegance for every occasion. Our commitment is to bring joy and artistic expression through vibrant colors and unique floral designs. Experience our love for flowers, delivered straight to your heart.
+  </p>
+</section>
+
+<section class="filters" role="region" aria-label="Flower category filters">
+  <button class="filter-button active" data-filter="all" aria-pressed="true">All</button>
+  <button class="filter-button" data-filter="roses" aria-pressed="false">Roses</button>
+  <button class="filter-button" data-filter="tulips" aria-pressed="false">Tulips</button>
+  <button class="filter-button" data-filter="lilies" aria-pressed="false">Lilies</button>
+</section>
+
+<section id="products" class="product-grid" aria-label="Flower products">
+  <!-- Product cards inserted by JavaScript -->
+</section>
+
+<section id="testimonials" class="testimonials fade-in" tabindex="0" aria-label="Customer Testimonials" role="region">
+  <h2>What Our Customers Say</h2>
+  <div class="testimonial-slider" aria-live="polite" aria-atomic="true">
+    <div class="testimonial-cards" id="testimonialCards">
+      <article class="testimonial-card" tabindex="0">
+        <p class="testimonial-text">"BloomArt’s roses made my anniversary unforgettable. The colors and fragrance were perfect!"</p>
+        <p class="testimonial-author">- Joanna C.</p>
+      </article>
+      <article class="testimonial-card" tabindex="0">
+        <p class="testimonial-text">"The tulip bouquets are absolutely stunning and fresh. Customer service was warm and delightful."</p>
+        <p class="testimonial-author">- Julie O.</p>
+      </article>
+      <article class="testimonial-card" tabindex="0">
+        <p class="testimonial-text">"I love the unique lilies. Each arrangement feels like a beautiful painting. Highly recommended!"</p>
+        <p class="testimonial-author">- John Francis R.</p>
+      </article>
+    </div>
+    <div class="testimonial-nav">
+      <button aria-label="Previous testimonial" id="prevTestimonial">&lt;</button>
+      <button aria-label="Next testimonial" id="nextTestimonial">&gt;</button>
+    </div>
+  </div>
+</section>
+
+<section id="newsletter" class="newsletter fade-in" tabindex="0" role="region" aria-label="Newsletter Subscription">
+  <h2>Stay in Bloom</h2>
+  <p>Subscribe to our newsletter for the latest flower arrangements, tips, and exclusive offers.</p>
+  <form id="newsletterForm" aria-label="Subscribe to newsletter">
+    <input type="email" id="emailInput" name="email" placeholder="Enter your email" aria-required="true" required />
+    <button type="submit" aria-label="Subscribe to newsletter">Subscribe</button>
+  </form>
+  <p id="newsletterMsg" role="alert" aria-live="assertive" style="margin-top: 1rem;"></p>
+</section>
+
+<footer id="contact" role="contentinfo" aria-label="Contact information and social media links">
+  <p>Contact us at <a href="mailto:contact@bloomart.com">contact@bloomart.com</a> or follow us on 
+    <a href="https://facebook.com" target="_blank" rel="noopener" aria-label="Facebook">Facebook</a>, 
+    <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram">Instagram</a>, 
+    <a href="https://twitter.com" target="_blank" rel="noopener" aria-label="Twitter">Twitter</a>.
+  </p>
+  <p>&copy; 2025 BloomArt. All rights reserved.</p>
+</footer>
+
+<script>
+  // Product Data
+  const products = [
+    {
+      id: 1,
+      name: "Crimson Roses",
+      category: "roses",
+      description: "Fresh and fragrant crimson roses to brighten your day.",
+      price: 25.99,
+      image: "https://ts2.mm.bing.net/th?id=OIP.QY3kB2tE79OWsw7NZcmdtwHaJ4&pid=15.1",
+    },
+    {
+      id: 2,
+      name: "Sunlit Tulips",
+      category: "tulips",
+      description: "Bright yellow tulips perfect for a sunny atmosphere.",
+      price: 19.99,
+      image: "https://ts4.mm.bing.net/th?id=OIP.MWnwmMKKRviQQh_RhObgwwHaJ4&pid=15.1",
+    },
+    {
+      id: 3,
+      name: "Elegant Lilies",
+      category: "lilies",
+      description: "White lilies that bring elegance and purity to any room.",
+      price: 22.99,
+      image: "https://ts3.mm.bing.net/th?id=OIP.h6Xpt2vyqRyj2FbJikwmcgHaJ4&pid=15.1",
+    },
+    {
+      id: 4,
+      name: "Pink Garden Roses",
+      category: "roses",
+      description: "Soft pink roses with a delicate, romantic aroma.",
+      price: 27.99,
+      image: "https://tse3.mm.bing.net/th/id/OIP.3_qbdOQNnw_7JMNW1ELk-AHaLH?pid=ImgDet&w=203&h=304&c=7",
+    },
+    {
+      id: 5,
+      name: "Purple Tulips",
+      category: "tulips",
+      description: "Deep purple tulips that express creativity and charm.",
+      price: 21.5,
+      image: "https://tse1.mm.bing.net/th/id/OIP._2J0LJrngtH9JAzF7Y8J3AHaJQ?pid=ImgDet&w=203&h=253&c=7",
+    },
+    {
+      id: 6,
+      name: "Orange Lilies",
+      category: "lilies",
+      description: "Vibrant orange lilies for an energetic and lively vibe.",
+      price: 24.5,
+      image: "https://tse2.mm.bing.net/th/id/OIP.zjHf3120-TeVF_c_1A7a7gHaHa?pid=ImgDet&w=203&h=203&c=7",
+    }
+  ];
+
+  // Ratings data (persisted in localStorage)
+  let ratings = JSON.parse(localStorage.getItem('flowerRatings')) || {};
+
+  // Elements
+  const productGrid = document.querySelector('.product-grid');
+  const filterButtons = document.querySelectorAll('.filter-button');
+
+  // Functions
+  function createStarRating(id, currentRating) {
+    const container = document.createElement('div');
+    container.className = 'star-rating';
+    container.setAttribute('role', 'radiogroup');
+    container.setAttribute('aria-label', `Rating for product ${id}`);
+
+    for(let i = 1; i <= 5; i++) {
+      const star = document.createElement('span');
+      star.className = 'star';
+      star.setAttribute('role', 'radio');
+      star.setAttribute('aria-checked', (i === currentRating).toString());
+      star.setAttribute('tabindex', '0');
+      star.dataset.value = i;
+      star.innerHTML = '&#9733;'; // star symbol
+
+      if(i <= currentRating) {
+        star.classList.add('filled');
+      }
+
+      // Hover effect
+      star.addEventListener('mouseenter', () => {
+        const stars = container.querySelectorAll('.star');
+        stars.forEach((s, idx) => {
+          s.classList.toggle('filled', idx < i);
+        });
+      });
+
+      star.addEventListener('mouseleave', () => {
+        const stars = container.querySelectorAll('.star');
+        stars.forEach((s, idx) => {
+          s.classList.toggle('filled', idx < currentRating);
+        });
+      });
+
+      // Click to rate
+      star.addEventListener('click', () => {
+        ratings[id] = i;
+        localStorage.setItem('flowerRatings', JSON.stringify(ratings));
+        currentRating = i;
+        updateAriaChecked(container, i);
+      });
+
+      // Keyboard support
+      star.addEventListener('keydown', (e) => {
+        if(e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          star.click();
+        }
+        else if(e.key === 'ArrowRight' || e.key === 'ArrowUp') {
+          e.preventDefault();
+          let nextStar = star.nextElementSibling || container.firstElementChild;
+          nextStar.focus();
+        } else if(e.key === 'ArrowLeft' || e.key === 'ArrowDown') {
+          e.preventDefault();
+          let prevStar = star.previousElementSibling || container.lastElementChild;
+          prevStar.focus();
+        }
+      });
+
+      container.appendChild(star);
+    }
+
+    return container;
+  }
+
+  function updateAriaChecked(container, ratingValue) {
+    const stars = container.querySelectorAll('.star');
+    stars.forEach((star, idx) => {
+      star.setAttribute('aria-checked', (idx + 1) === ratingValue ? 'true' : 'false');
+    });
+  }
+
+  function renderProducts(filterCategory = 'all') {
+    productGrid.innerHTML = '';
+    let filteredProducts = products;
+
+    if(filterCategory !== 'all') {
+      filteredProducts = products.filter(p => p.category === filterCategory);
+    }
+
+    filteredProducts.forEach(p => {
+      const card = document.createElement('article');
+      card.className = 'product-card fade-in';
+      card.setAttribute('tabindex', '0');
+      card.setAttribute('aria-label', `${p.name}, price $${p.price.toFixed(2)}`);
+
+      const img = document.createElement('div');
+      img.className = 'product-image';
+      img.style.backgroundImage = `url(${p.image})`;
+      img.setAttribute('role', 'img');
+      img.setAttribute('aria-label', p.name + ' flower image');
+
+      const info = document.createElement('div');
+      info.className = 'product-info';
+
+      const name = document.createElement('h3');
+      name.className = 'product-name';
+      name.textContent = p.name;
+
+      const desc = document.createElement('p');
+      desc.className = 'product-description';
+      desc.textContent = p.description;
+
+      const price = document.createElement('p');
+      price.className = 'product-price';
+      price.textContent = `$${p.price.toFixed(2)}`;
+
+      const ratingValue = ratings[p.id] || 0;
+      const rating = createStarRating(p.id, ratingValue);
+
+      info.appendChild(name);
+      info.appendChild(desc);
+      info.appendChild(price);
+      info.appendChild(rating);
+
+      card.appendChild(img);
+      card.appendChild(info);
+
+      productGrid.appendChild(card);
+    });
+
+    observeFadeIn();
+  }
+
+  // Filter buttons logic
+  filterButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      filterButtons.forEach(btn => {
+        btn.classList.remove('active');
+        btn.setAttribute('aria-pressed', 'false');
+      });
+      button.classList.add('active');
+      button.setAttribute('aria-pressed', 'true');
+      renderProducts(button.getAttribute('data-filter'));
+    });
+  });
+
+  // Animation on scroll for fade-in elements
+  function observeFadeIn() {
+    const faders = document.querySelectorAll('.fade-in');
+    const options = {
+      threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, options);
+
+    faders.forEach(fader => {
+      observer.observe(fader);
+    });
+  }
+  observeFadeIn();
+
+  // Initial product render
+  renderProducts();
+
+  // Testimonials slider logic
+  const testimonialCards = document.getElementById('testimonialCards');
+  const prevBtn = document.getElementById('prevTestimonial');
+  const nextBtn = document.getElementById('nextTestimonial');
+  const totalTestimonials = testimonialCards.children.length;
+  let testimonialIndex = 0;
+
+  function updateTestimonialPosition() {
+    const shift = testimonialIndex * -320; // card width + gap approx 300 + 20
+    testimonialCards.style.transform = `translateX(${shift}px)`;
+  }
+
+  prevBtn.addEventListener('click', () => {
+    testimonialIndex = (testimonialIndex - 1 + totalTestimonials) % totalTestimonials;
+    updateTestimonialPosition();
+  });
+
+  nextBtn.addEventListener('click', () => {
+    testimonialIndex = (testimonialIndex + 1) % totalTestimonials;
+    updateTestimonialPosition();
+  });
+
+  // Keyboard accessible testimonial navigation
+  prevBtn.addEventListener('keydown', e => {
+    if(e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      prevBtn.click();
+    }
+  });
+  nextBtn.addEventListener('keydown', e => {
+    if(e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      nextBtn.click();
+    }
+  });
+
+  // Newsletter subscription logic
+  const newsletterForm = document.getElementById('newsletterForm');
+  const emailInput = document.getElementById('emailInput');
+  const newsletterMsg = document.getElementById('newsletterMsg');
+
+  newsletterForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const email = emailInput.value.trim();
+    if(validateEmail(email)) {
+      newsletterMsg.style.color = 'green';
+      newsletterMsg.textContent = 'Thank you for subscribing to the BloomArt newsletter!';
+      newsletterForm.reset();
+    } else {
+      newsletterMsg.style.color = 'red';
+      newsletterMsg.textContent = 'Please enter a valid email address.';
+      emailInput.focus();
+    }
+  });
+
+  function validateEmail(email) {
+    // Simple email validation regex
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email.toLowerCase());
+  }
+</script>
+</body>
+</html>
+
