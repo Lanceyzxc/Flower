@@ -451,7 +451,49 @@
     font-weight: 600;
   }
 
-    footer a:focus {
+ /* Footer design */
+  footer {
+    position: relative;
+    background: var(--primary-color);
+    color: white;
+    padding: 3rem 1rem 2rem;
+    text-align: center;
+    font-weight: 300;
+    user-select: none;
+    overflow: hidden;
+  }
+  footer::before {
+    content: "";
+    position: absolute;
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 140%;
+    height: 140px;
+    background: url('https://svgshare.com/i/vHL.svg') no-repeat center center;
+    background-size: contain;
+    opacity: 0.15;
+    pointer-events: none;
+    z-index: 0;
+  }
+  footer p {
+    position: relative;
+    z-index: 1;
+    max-width: 700px;
+    margin: 0.5rem auto;
+    font-size: 1rem;
+  }
+  footer a {
+    color: white;
+    text-decoration: none;
+    font-weight: 700;
+    margin: 0 0.8rem;
+    position: relative;
+    transition: color 0.3s ease;
+    z-index: 1;
+  }
+  footer a:hover,
+  footer a:focus {
     color: var(--secondary-color);
   }
   footer .social-icons {
@@ -468,10 +510,7 @@
     fill: white;
     transition: fill 0.3s ease;
   }
-  footer .social-icons a:hover,
-  footer .social-icons a:focus {
-    fill: var(--secondary-color);
-  }
+
   /* Responsive footer */
   @media (max-width: 480px) {
     footer p {
@@ -937,4 +976,3 @@
 </script>
 </body>
 </html>
-
