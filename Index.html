@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Marahuyo - Artistic Flower Shop</title>
@@ -91,138 +92,112 @@
   cursor: pointer;
   z-index: 11;
 }
-/* BASIC MODAL STYLES */
-.modal {
+
+/* Modal overlay with floral dream aesthetic */
+.modal-overlay {
   position: fixed;
   inset: 0;
+  background: linear-gradient(135deg, #fff0f6 0%, #fde2e4 100%);
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 9999;
   overflow: hidden;
-  background: radial-gradient(circle at top left, #fff0f7, #ffeaf1, #fff);
-  z-index: 10000;
-  animation: fadeIn 2s ease forwards;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+  font-family: 'Georgia', serif;
 }
 
-.modal-overlay {
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-art-bg {
   position: absolute;
-  width: 100%;
-  height: 100%;
-  backdrop-filter: blur(12px);
-  background: rgba(255, 240, 250, 0.5);
-  z-index: 1;
+  inset: 0;
+  background-image: url('https://www.transparenttextures.com/patterns/floral-wallpaper.png');
+  opacity: 0.1;
+  z-index: 0;
+  pointer-events: none;
 }
 
 .modal-content {
   position: relative;
-  z-index: 2;
-  max-width: 600px;
-  padding: 3rem;
-  background: rgba(255, 255, 255, 0.9);
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(8px);
+  padding: 3rem 4rem;
   border-radius: 2rem;
+  box-shadow: 0 0 30px rgba(255, 192, 203, 0.5);
   text-align: center;
-  font-family: 'Georgia', serif;
-  animation: zoomIn 1.5s ease forwards, glowPulse 4s ease-in-out infinite;
-  box-shadow: 0 0 40px rgba(193, 66, 120, 0.3);
-  border: 2px solid rgba(255, 192, 203, 0.3);
+  max-width: 600px;
+  border: 2px solid rgba(255, 182, 193, 0.5);
+  animation: fadeInUp 1.2s ease forwards;
 }
 
 .modal-content h2 {
-  font-size: 2.5rem;
-  color: #a13667;
+  font-family: 'Dancing Script', cursive;
+  font-size: 2.8rem;
+  color: #d63384;
   margin-bottom: 1rem;
 }
 
 .modal-content p {
   font-size: 1.2rem;
-  color: #633144;
+  color: #5f3dc4;
   margin-bottom: 2rem;
+  font-style: italic;
 }
 
-.modal-content button {
-  background: linear-gradient(to right, #c94f7c, #f78ca2);
-  color: white;
-  padding: 0.75rem 2rem;
+#closeModal {
+  background-color: #fcd5ce;
+  color: #6f42c1;
   border: none;
-  border-radius: 2rem;
+  padding: 0.8rem 2rem;
   font-size: 1rem;
+  border-radius: 999px;
   cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  font-weight: bold;
 }
 
-.modal-content button:hover {
-  transform: scale(1.1);
-  box-shadow: 0 0 15px rgba(255, 182, 193, 0.6);
+#closeModal:hover {
+  background-color: #f9c6d3;
+  transform: scale(1.05);
 }
 
-/* ANIMATIONS */
-@keyframes zoomIn {
-  0% { transform: scale(0.7); opacity: 0; }
-  100% { transform: scale(1); opacity: 1; }
-}
-
-@keyframes glowPulse {
-  0%, 100% { box-shadow: 0 0 20px rgba(255, 182, 193, 0.3); }
-  50% { box-shadow: 0 0 40px rgba(255, 182, 193, 0.7); }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-/* SHIMMER TEXT */
-.shimmer {
-  background: linear-gradient(90deg, #a13667, #ffc0cb, #a13667);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-size: 200% auto;
-  animation: shimmer 3s linear infinite;
-}
-
-@keyframes shimmer {
-  0% { background-position: 200% center; }
-  100% { background-position: -200% center; }
-}
-
-/* FALLING PETALS */
+/* Floating Petals */
 .petal {
-  position: fixed;
-  width: 15px;
-  height: 15px;
-  pointer-events: none;
-  background-size: contain;
-  background-repeat: no-repeat;
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background: url('https://upload.wikimedia.org/wikipedia/commons/3/37/Sakura_petal.png') no-repeat center/contain;
   opacity: 0.8;
-  animation: fall linear infinite;
+  animation: float 10s infinite linear;
+  z-index: 0;
 }
 
-@keyframes fall {
-  0% {
-    transform: translateY(-100px) rotate(0deg);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(100vh) rotate(360deg);
+.petal1 { top: -20px; left: 10%; animation-delay: 0s; }
+.petal2 { top: -40px; left: 50%; animation-delay: 2s; }
+.petal3 { top: -60px; left: 80%; animation-delay: 4s; }
+.petal4 { top: -100px; left: 30%; animation-delay: 6s; }
+
+@keyframes float {
+  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+}
+
+@keyframes fadeInUp {
+  from {
     opacity: 0;
+    transform: translateY(40px);
   }
-}
-
-/* FLOATING SPARKLES */
-.sparkle {
-  position: fixed;
-  width: 10px;
-  height: 10px;
-  background: radial-gradient(circle, #ffd5ec 0%, transparent 70%);
-  border-radius: 50%;
-  opacity: 0.7;
-  pointer-events: none;
-  animation: floatUp linear infinite;
-}
-
-@keyframes floatUp {
-  0% { transform: translateY(0) scale(1); opacity: 0.8; }
-  100% { transform: translateY(-100vh) scale(0.5); opacity: 0; }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
   /* Hero Section */
@@ -778,19 +753,20 @@
 </nav>
 </header>
 
-<div id="welcomeModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="welcomeTitle" aria-describedby="welcomeMessage">
-  <div class="modal-overlay"></div>
-  <div class="modal-content">
-    <h2 id="welcomeTitle" class="shimmer">🌸 Welcome to Marahuyo</h2>
-    <p id="welcomeMessage">Where blooms whisper stories of beauty and grace. Step into our floral world.</p>
-    <button id="closeModal" aria-label="Close welcome modal">Enter BloomArt</button>
+<div id="welcomeModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalDesc">
+  <div class="modal-art-bg"></div> <!-- Decorative background -->
+  <div class="modal-content fade-in">
+    <h2 id="modalTitle">🌸 Welcome to Marahuyo 🌸</h2>
+    <p id="modalDesc">Where blooms whisper stories of love, elegance, and artistry.</p>
+    <button id="closeModal" aria-label="Close welcome modal">Enter</button>
   </div>
-</div>
 
-<!-- Background music (optional) -->
-<audio id="bgMusic" autoplay loop>
-  <source src="https://cdn.pixabay.com/download/audio/2023/01/22/audio_54678531ce.mp3?filename=serenity-135372.mp3" type="audio/mpeg">
-</audio>
+  <!-- Floating petals -->
+  <div class="petal petal1"></div>
+  <div class="petal petal2"></div>
+  <div class="petal petal3"></div>
+  <div class="petal petal4"></div>
+</div>
 
 <section class="hero" id="home" role="banner" aria-label="Welcome banner with flowers">
   <div class="hero-content fade-in" tabindex="0">
@@ -902,47 +878,22 @@
   window.addEventListener('DOMContentLoaded', () => {
     const modal = document.getElementById('welcomeModal');
     const closeModal = document.getElementById('closeModal');
-    const music = document.getElementById('bgMusic');
 
-    // Generate multiple petals (3 styles)
-    const petalImages = [
-      'https://static.vecteezy.com/system/resources/previews/014/320/916/original/rose-petal-isolated-background-free-png.png',
-      'https://th.bing.com/th/id/R.977f91904a5b5c5a47a9b0229115389f?rik=HeifC7WlIahd%2bg&riu=http%3a%2f%2fmagnolias.m.a.pic.centerblog.net%2f55acd83e.png&ehk=cpytkSZTr5ay0e2I3N2uBeaZ79alwYIUDfyC30VpTXQ%3d&risl=&pid=ImgRaw&r=0',
-      'https://www.pinclipart.com/picdir/big/164-1649040_single-flowers-images-clip-art.png'
-    ];
+    // Show modal after delay
+    setTimeout(() => {
+      modal.classList.add('active');
+    }, 1000);
 
-    for (let i = 0; i < 30; i++) {
-      const petal = document.createElement('div');
-      petal.className = 'petal';
-      petal.style.left = `${Math.random() * 100}vw`;
-      petal.style.top = `${-Math.random() * 20}vh`;
-      petal.style.animationDuration = `${5 + Math.random() * 5}s`;
-      petal.style.animationDelay = `${Math.random() * 5}s`;
-      petal.style.backgroundImage = `url('${petalImages[Math.floor(Math.random() * petalImages.length)]}')`;
-      document.body.appendChild(petal);
-    }
-
-    // Floating sparkles
-    for (let i = 0; i < 20; i++) {
-      const sparkle = document.createElement('div');
-      sparkle.className = 'sparkle';
-      sparkle.style.left = `${Math.random() * 100}vw`;
-      sparkle.style.bottom = `${Math.random() * 100}vh`;
-      sparkle.style.animationDuration = `${8 + Math.random() * 4}s`;
-      sparkle.style.animationDelay = `${Math.random() * 5}s`;
-      document.body.appendChild(sparkle);
-    }
-
-    // Modal close
+    // Hide on click
     closeModal.addEventListener('click', () => {
-      modal.style.transition = 'opacity 1s ease';
-      modal.style.opacity = '0';
-      setTimeout(() => modal.style.display = 'none', 1000);
+      modal.classList.remove('active');
     });
 
-    // Resume music on interaction (for autoplay policies)
-    document.body.addEventListener('click', () => {
-      if (music.paused) music.play().catch(() => {});
+    // Close with Escape key
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('active')) {
+        modal.classList.remove('active');
+      }
     });
   });
 </script>
