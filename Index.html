@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Marahuyo - Artistic Flower Shop</title>
@@ -91,113 +90,6 @@
   border: none;
   cursor: pointer;
   z-index: 11;
-}
-
-/* Modal overlay with floral dream aesthetic */
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: linear-gradient(135deg, #fff0f6 0%, #fde2e4 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-  overflow: hidden;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.8s ease, visibility 0.8s ease;
-  font-family: 'Georgia', serif;
-}
-
-.modal-overlay.active {
-  opacity: 1;
-  visibility: visible;
-}
-
-.modal-art-bg {
-  position: absolute;
-  inset: 0;
-  background-image: url('https://www.transparenttextures.com/patterns/floral-wallpaper.png');
-  opacity: 0.1;
-  z-index: 0;
-  pointer-events: none;
-}
-
-.modal-content {
-  position: relative;
-  z-index: 1;
-  background: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(8px);
-  padding: 3rem 4rem;
-  border-radius: 2rem;
-  box-shadow: 0 0 30px rgba(255, 192, 203, 0.5);
-  text-align: center;
-  max-width: 600px;
-  border: 2px solid rgba(255, 182, 193, 0.5);
-  animation: fadeInUp 1.2s ease forwards;
-}
-
-.modal-content h2 {
-  font-family: 'Dancing Script', cursive;
-  font-size: 2.8rem;
-  color: #d63384;
-  margin-bottom: 1rem;
-}
-
-.modal-content p {
-  font-size: 1.2rem;
-  color: #5f3dc4;
-  margin-bottom: 2rem;
-  font-style: italic;
-}
-
-#closeModal {
-  background-color: #fcd5ce;
-  color: #6f42c1;
-  border: none;
-  padding: 0.8rem 2rem;
-  font-size: 1rem;
-  border-radius: 999px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-  font-weight: bold;
-}
-
-#closeModal:hover {
-  background-color: #f9c6d3;
-  transform: scale(1.05);
-}
-
-/* Floating Petals */
-.petal {
-  position: absolute;
-  width: 40px;
-  height: 40px;
-  background: url('https://upload.wikimedia.org/wikipedia/commons/3/37/Sakura_petal.png') no-repeat center/contain;
-  opacity: 0.8;
-  animation: float 10s infinite linear;
-  z-index: 0;
-}
-
-.petal1 { top: -20px; left: 10%; animation-delay: 0s; }
-.petal2 { top: -40px; left: 50%; animation-delay: 2s; }
-.petal3 { top: -60px; left: 80%; animation-delay: 4s; }
-.petal4 { top: -100px; left: 30%; animation-delay: 6s; }
-
-@keyframes float {
-  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-  100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
   /* Hero Section */
@@ -753,21 +645,6 @@
 </nav>
 </header>
 
-<div id="welcomeModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalDesc">
-  <div class="modal-art-bg"></div> <!-- Decorative background -->
-  <div class="modal-content fade-in">
-    <h2 id="modalTitle">🌸 Welcome to Marahuyo 🌸</h2>
-    <p id="modalDesc">Where blooms whisper stories of love, elegance, and artistry.</p>
-    <button id="closeModal" aria-label="Close welcome modal">Enter</button>
-  </div>
-
-  <!-- Floating petals -->
-  <div class="petal petal1"></div>
-  <div class="petal petal2"></div>
-  <div class="petal petal3"></div>
-  <div class="petal petal4"></div>
-</div>
-
 <section class="hero" id="home" role="banner" aria-label="Welcome banner with flowers">
   <div class="hero-content fade-in" tabindex="0">
     <h1>Marahuyo</h1>
@@ -873,30 +750,6 @@
   <p>Contact us at <a href="mailto:contact@bloomart.com">coffekoustories@gmail.com</a></p>
   <p>&copy; 2025 Marahuyo. All rights reserved.</p>
 </footer>
-
-<script>
-  window.addEventListener('DOMContentLoaded', () => {
-    const modal = document.getElementById('welcomeModal');
-    const closeModal = document.getElementById('closeModal');
-
-    // Show modal after delay
-    setTimeout(() => {
-      modal.classList.add('active');
-    }, 1000);
-
-    // Hide on click
-    closeModal.addEventListener('click', () => {
-      modal.classList.remove('active');
-    });
-
-    // Close with Escape key
-    window.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && modal.classList.contains('active')) {
-        modal.classList.remove('active');
-      }
-    });
-  });
-</script>
 
 <script>
   // Product Data
