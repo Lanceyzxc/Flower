@@ -92,119 +92,110 @@
   z-index: 11;
 }
 
+/* Modal Container */
 .modal {
   position: fixed;
-  inset: 0;
-  background: linear-gradient(120deg, #ffe9f0, #e0f7fa);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
-  overflow: hidden;
+  z-index: 9999;
 }
 
+/* Glass-like Background */
+.modal-background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 240, 250, 0.8);
+  backdrop-filter: blur(10px);
+  z-index: 1;
+}
+
+/* Modal Content */
 .modal-content {
-  background: rgba(255, 255, 255, 0.95);
-  border: 2px solid #f2c1da;
-  border-radius: 2rem;
-  padding: 3rem;
-  max-width: 600px;
-  text-align: center;
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
-  animation: slideIn 1.2s ease-out;
   position: relative;
+  z-index: 2;
+  max-width: 500px;
+  padding: 2.5rem;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 1.5rem;
+  box-shadow: 0 0 30px rgba(193, 66, 120, 0.4);
+  text-align: center;
+  font-family: 'Georgia', serif;
+  color: #6d2c41;
+  animation: pulseFadeIn 1s ease-out forwards;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 192, 203, 0.3);
 }
 
 .modal-content h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: 2.2rem;
-  color: #a8479c;
+  font-size: 2rem;
   margin-bottom: 1rem;
 }
 
-.glow-text {
-  background: linear-gradient(to right, #e94057, #8a2387);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: glow 2s ease-in-out infinite alternate;
+.modal-content p {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
 }
 
-.modal-content .message {
-  font-style: italic;
-  font-size: 1.15rem;
-  color: #444;
-  margin-bottom: 0.5rem;
-}
-
-.modal-content .subtext {
-  font-size: 0.95rem;
-  color: #666;
-  margin-bottom: 2rem;
-}
-
-#closeModal {
-  padding: 0.8rem 2rem;
-  font-size: 1rem;
+.modal-content button {
+  background-color: #c94f7c;
+  color: white;
   border: none;
-  background: linear-gradient(to right, #ff9a9e, #fad0c4);
-  color: #fff;
-  border-radius: 50px;
+  padding: 0.75rem 1.5rem;
+  border-radius: 2rem;
+  font-size: 1rem;
   cursor: pointer;
-  box-shadow: 0 10px 30px rgba(248, 132, 167, 0.4);
-  transition: transform 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-#closeModal:hover {
+.modal-content button:hover {
+  background-color: #a83861;
   transform: scale(1.05);
-  background: linear-gradient(to right, #fcb69f, #ffdde1);
 }
 
-.flower-icon {
-  width: 80px;
-  margin-bottom: 1rem;
-  animation: float 6s ease-in-out infinite;
+/* Entrance Animation */
+@keyframes pulseFadeIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.85);
+    box-shadow: 0 0 0 rgba(0,0,0,0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 0 40px rgba(193, 66, 120, 0.5);
+  }
 }
 
-/* Petals */
-.petals .petal {
+/* Petal Animations */
+.modal::before {
+  content: "";
   position: absolute;
-  width: 20px;
-  height: 20px;
-  background: radial-gradient(circle at center, #ffc1cc, transparent 70%);
-  border-radius: 50%;
-  animation: fall 8s infinite linear;
-  opacity: 0.8;
+  top: -100px;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background-image: url('https://cdn.jsdelivr.net/gh/Albertorz/dev-assets/petals-pink.png'); /* Optional: use a PNG of falling petals */
+  background-size: contain;
+  animation: petalsFall 12s linear infinite;
+  z-index: 0;
+  opacity: 0.25;
 }
 
-.petals .petal:nth-child(1) { top: -10%; left: 10%; animation-delay: 0s; }
-.petals .petal:nth-child(2) { top: -15%; left: 30%; animation-delay: 2s; }
-.petals .petal:nth-child(3) { top: -20%; left: 50%; animation-delay: 1s; }
-.petals .petal:nth-child(4) { top: -25%; left: 70%; animation-delay: 3s; }
-.petals .petal:nth-child(5) { top: -10%; left: 80%; animation-delay: 4s; }
-.petals .petal:nth-child(6) { top: -5%; left: 90%; animation-delay: 5s; }
-
-@keyframes fall {
-  0% { transform: translateY(0) rotate(0deg); }
-  100% { transform: translateY(100vh) rotate(360deg); }
-}
-
-@keyframes slideIn {
-  from { transform: translateY(100px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
-
-@keyframes glow {
-  from { text-shadow: 0 0 10px #ffc0cb; }
-  to { text-shadow: 0 0 25px #ff69b4; }
-}
-
-.hidden {
-  display: none;
+@keyframes petalsFall {
+  0% {
+    transform: translate(-50%, -100px) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, 100vh) rotate(360deg);
+  }
 }
 
   /* Hero Section */
@@ -760,19 +751,12 @@
 </nav>
 </header>
 
-<div id="welcomeModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-  <div class="modal-content">
-    <img src="https://i.imgur.com/ncmD2pZ.png" alt="Elegant Flower" class="flower-icon" />
-    <h2 id="modalTitle" class="glow-text">Welcome to <em>Marahuyo</em></h2>
-    <p class="message">“Where every petal tells a story, and every bloom holds a dream.”</p>
-    <p class="subtext">Step into our world of bespoke floral artistry, made to enchant.</p>
-    <button id="closeModal">🌸 Enter the Garden 🌸</button>
-  </div>
-
-  <!-- Petal animation -->
-  <div class="petals">
-    <div class="petal"></div><div class="petal"></div><div class="petal"></div>
-    <div class="petal"></div><div class="petal"></div><div class="petal"></div>
+<div id="welcomeModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="welcomeTitle" aria-describedby="welcomeMessage">
+  <div class="modal-background"></div>
+  <div class="modal-content animated-modal">
+    <h2 id="welcomeTitle">🌸 Welcome to Marahuyo</h2>
+    <p id="welcomeMessage">Where every bloom tells a story of passion and artistry. Enter a world of floral enchantment.</p>
+    <button id="closeModal" aria-label="Close welcome message">Enter Site</button>
   </div>
 </div>
 
@@ -885,15 +869,14 @@
 <script>
   window.addEventListener('DOMContentLoaded', () => {
     const modal = document.getElementById('welcomeModal');
-    const closeBtn = document.getElementById('closeModal');
+    const closeModal = document.getElementById('closeModal');
 
-    if (!localStorage.getItem('visitedMarahuyo')) {
-      modal.classList.remove('hidden');
-      localStorage.setItem('visitedMarahuyo', 'true');
-    }
+    modal.style.display = 'flex';
 
-    closeBtn.addEventListener('click', () => {
-      modal.classList.add('hidden');
+    closeModal.addEventListener('click', () => {
+      modal.style.transition = 'opacity 0.5s ease';
+      modal.style.opacity = '0';
+      setTimeout(() => modal.style.display = 'none', 500);
     });
   });
 </script>
