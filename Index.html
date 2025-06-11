@@ -82,6 +82,16 @@
     width: 100%;
   }
 
+  .hamburger {
+  display: none;
+  font-size: 2rem;
+  color: white;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 11;
+}
+
   /* Hero Section */
   .hero {
     min-height: 70vh;
@@ -542,6 +552,33 @@
     }
   }
 
+  @media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+
+  nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--primary-color);
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem 2rem;
+    display: none;
+  }
+
+  nav a {
+    display: block;
+    margin: 0.5rem 0;
+  }
+
+  nav.active {
+    display: flex;
+  }
+}
+
   /* Responsive adjustments */
   @media (max-width: 780px) {
     #contact form {
@@ -579,13 +616,16 @@
 <body>
 <header>
   <div class="logo" aria-label="BloomArt Flower Shop">BloomArt</div>
-  <nav role="navigation" aria-label="Primary Navigation">
-    <a href="#home" tabindex="0">Home</a>
-    <a href="#about" tabindex="0">About Us</a>
-    <a href="#products" tabindex="0">Flowers</a>
-    <a href="#testimonials" tabindex="0">Testimonials</a>
-    <a href="#contact" tabindex="0">Contact</a>
-  </nav>
+  <button class="hamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-menu">
+  &#9776;
+</button>
+  <nav id="mobile-menu" role="navigation" aria-label="Primary Navigation">
+  <a href="#home" tabindex="0">Home</a>
+  <a href="#about" tabindex="0">About Us</a>
+  <a href="#products" tabindex="0">Flowers</a>
+  <a href="#testimonials" tabindex="0">Testimonials</a>
+  <a href="#contact" tabindex="0">Contact</a>
+</nav>
 </header>
 
 <section class="hero" id="home" role="banner" aria-label="Welcome banner with flowers">
@@ -743,6 +783,14 @@
   // Elements
   const productGrid = document.querySelector('.product-grid');
   const filterButtons = document.querySelectorAll('.filter-button');
+  const hamburger = document.querySelector('.hamburger');
+  const nav = document.getElementById('mobile-menu');
+
+  hamburger.addEventListener('click', () => {
+    nav.classList.toggle('active');
+    const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
+    hamburger.setAttribute('aria-expanded', !isExpanded);
+  });
 
   // Functions for star ratings
   function createStarRating(id, currentRating) {
