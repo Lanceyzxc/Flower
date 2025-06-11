@@ -92,50 +92,6 @@
   z-index: 11;
 }
 
-#petal-container {
-  pointer-events: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  overflow: hidden;
-}
-
-.petal {
-  position: absolute;
-  width: 30px;
-  height: 30px;
-  opacity: 0;
-  animation-name: fall, drift, fade;
-  animation-duration: 10s, 6s, 10s;
-  animation-timing-function: linear, ease-in-out, ease-in-out;
-  animation-iteration-count: infinite;
-  animation-fill-mode: forwards;
-}
-
-.petal img {
-  width: 100%;
-  height: auto;
-  pointer-events: none;
-}
-
-@keyframes fall {
-  0% { transform: translateY(-10%); }
-  100% { transform: translateY(110vh); }
-}
-
-@keyframes drift {
-  0%, 100% { transform: translateX(0); }
-  50% { transform: translateX(100px); }
-}
-
-@keyframes fade {
-  0%, 100% { opacity: 0; }
-  10%, 90% { opacity: 0.8; }
-}
-
   /* Hero Section */
   .hero {
     min-height: 92vh;
@@ -691,7 +647,6 @@
 </header>
 
 <section class="hero" id="home" role="banner" aria-label="Welcome banner with flowers">
-  <div id="petal-container" aria-hidden="true"></div>
   <div class="hero-content fade-in" tabindex="0">
     <h1>Marahuyo</h1>
     <p>Where flowers bloom, so does hope.</p>
@@ -796,45 +751,6 @@
   <p>Contact us at <a href="mailto:contact@bloomart.com">coffekoustories@gmail.com</a></p>
   <p>&copy; 2025 Marahuyo. All rights reserved.</p>
 </footer>
-
-<script>
-  const petalImages = [
-    'https://static.vecteezy.com/system/resources/previews/014/320/916/large_2x/rose-petal-isolated-background-free-png.png',
-    'https://static.vecteezy.com/system/resources/previews/021/949/646/original/yellow-petal-isolated-on-a-transparent-background-png.png',
-    'https://static.vecteezy.com/system/resources/previews/040/334/919/non_2x/ai-generated-purple-flower-isolated-on-transparent-background-free-png.png'
-  ];
-
-  const petalContainer = document.getElementById('petal-container');
-
-  function createPetal() {
-    const petal = document.createElement('div');
-    petal.classList.add('petal');
-
-    const img = document.createElement('img');
-    img.src = petalImages[Math.floor(Math.random() * petalImages.length)];
-    img.alt = '';
-    
-    petal.style.left = Math.random() * 100 + 'vw';
-    petal.style.animationDelay = Math.random() * 10 + 's';
-    petal.style.animationDuration = (6 + Math.random() * 5) + 's';
-
-    petal.appendChild(img);
-    petalContainer.appendChild(petal);
-
-    // Remove petals after animation
-    setTimeout(() => {
-      petal.remove();
-    }, 15000);
-  }
-
-  // Create 12 petals initially
-  for (let i = 0; i < 12; i++) {
-    createPetal();
-  }
-
-  // Optionally add more petals over time
-  setInterval(createPetal, 3000);
-</script>
 
 <script>
   // Product Data
