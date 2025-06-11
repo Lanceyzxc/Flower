@@ -421,6 +421,8 @@
     resize: vertical;
     font-family: 'Poppins', sans-serif;
     transition: border-color 0.3s ease;
+    width: 100%; /* Ensures input does not overflow on small screens */
+    box-sizing: border-box; /* Includes padding in total width */
   }
 
   #contact input[type="text"]:focus,
@@ -581,6 +583,9 @@
 
   /* Responsive adjustments */
   @media (max-width: 780px) {
+    #contact {
+    padding: 1.5rem 1rem;
+    }
     #contact form {
       grid-template-columns: 1fr;
     }
@@ -589,6 +594,18 @@
     }
     #contact button {
       grid-column: span 1;
+    }
+    #contact form > div,
+    #contact textarea,
+    #contact button,
+    #formMessage {
+      width: 100%;
+    }
+  
+    #contact textarea,
+    #contact button,
+    #formMessage {
+      grid-column: span 1 !important;
     }
   }
 
