@@ -261,13 +261,13 @@ nextBtn.addEventListener('keydown', e => {
     }
 });
 
+// Contact form logic
 const contactForm = document.getElementById('contactForm');
 const formMessage = document.getElementById('formMessage');
 
-contactForm.addEventListener('submit', async (e) => {
+contactForm.addEventListener('submit', e => {
     e.preventDefault();
     formMessage.textContent = '';
-    
     const name = contactForm.name.value.trim();
     const email = contactForm.email.value.trim();
     const subject = contactForm.subject.value.trim();
@@ -278,42 +278,14 @@ contactForm.addEventListener('submit', async (e) => {
         formMessage.textContent = 'Please fill in all required fields.';
         return;
     }
-
     if (!validateEmail(email)) {
         formMessage.style.color = 'red';
         formMessage.textContent = 'Please enter a valid email address.';
         return;
     }
-
-    // Simulate form submission (send data to Netlify function)
-    try {
-        const response = await fetch('/.netlify/functions/submitContactForm', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                name,
-                email,
-                subject,
-                message,
-            }),
-        });
-
-        const result = await response.json();
-        
-        if (response.ok) {
-            formMessage.style.color = 'green';
-            formMessage.textContent = result.message;
-        } else {
-            formMessage.style.color = 'red';
-            formMessage.textContent = result.message || 'An error occurred.';
-        }
-    } catch (error) {
-        formMessage.style.color = 'red';
-        formMessage.textContent = 'There was an error submitting your form. Please try again later.';
-    }
-
+    // Simulate form submission (no backend)
+    formMessage.style.color = 'green';
+    formMessage.textContent = `Thank you, ${name}! Your message has been received. We will get back to you soon.`;
     contactForm.reset();
 });
 
