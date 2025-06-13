@@ -1,9 +1,8 @@
-// netlify/functions/submitContactForm.js
 const { Client } = require('pg');  // PostgreSQL client
 
-// Set up database connection
+// Set up database connection using the environment variable
 const client = new Client({
-  connectionString: process.env.DATABASE_URL,  // Connection URL from Neon
+  connectionString: process.env.DATABASE_URL,  // Correct connection string from environment
   ssl: { rejectUnauthorized: false },  // SSL connection for security
 });
 
@@ -46,10 +45,13 @@ exports.handler = async (event, context) => {
       body: JSON.stringify({ message: 'Thank you for your submission!' }),
     };
   } catch (error) {
+    // Log error to the console for debugging
+    console.error('Error saving form submission to database:', error);
+
     // Close the database connection in case of an error
     await client.end();
 
-    // Handle errors
+    // Return error response
     return {
       statusCode: 500,
       body: JSON.stringify({ message: 'An error occurred. Please try again later.' }),
