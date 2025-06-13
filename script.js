@@ -5,7 +5,7 @@ const products = [
         name: "Crimson Roses",
         category: "roses",
         description: "Fresh and fragrant crimson roses to brighten your day.",
-        price: 25.99,
+        price: 5.00,
         image: "https://ts2.mm.bing.net/th?id=OIP.QY3kB2tE79OWsw7NZcmdtwHaJ4&pid=15.1",
     },
     {
@@ -13,7 +13,7 @@ const products = [
         name: "Sunlit Tulips",
         category: "tulips",
         description: "Bright yellow tulips perfect for a sunny atmosphere.",
-        price: 19.99,
+        price: 5.00,
         image: "https://ts4.mm.bing.net/th?id=OIP.MWnwmMKKRviQQh_RhObgwwHaJ4&pid=15.1",
     },
     {
@@ -21,7 +21,7 @@ const products = [
         name: "Elegant Lilies",
         category: "lilies",
         description: "White lilies that bring elegance and purity to any room.",
-        price: 22.99,
+        price: 5.00,
         image: "https://ts3.mm.bing.net/th?id=OIP.h6Xpt2vyqRyj2FbJikwmcgHaJ4&pid=15.1",
     },
     {
@@ -29,7 +29,7 @@ const products = [
         name: "Pink Garden Roses",
         category: "roses",
         description: "Soft pink roses with a delicate, romantic aroma.",
-        price: 27.99,
+        price: 5.00,
         image: "https://tse3.mm.bing.net/th/id/OIP.3_qbdOQNnw_7JMNW1ELk-AHaLH?pid=ImgDet&w=203&h=304&c=7",
     },
     {
@@ -37,7 +37,7 @@ const products = [
         name: "Purple Tulips",
         category: "tulips",
         description: "Deep purple tulips that express creativity and charm.",
-        price: 21.5,
+        price: 5.00,
         image: "https://tse1.mm.bing.net/th/id/OIP._2J0LJrngtH9JAzF7Y8J3AHaJQ?pid=ImgDet&w=203&h=253&c=7",
     },
     {
@@ -45,7 +45,7 @@ const products = [
         name: "Orange Lilies",
         category: "lilies",
         description: "Vibrant orange lilies for an energetic and lively vibe.",
-        price: 24.5,
+        price: 5.00,
         image: "https://tse2.mm.bing.net/th/id/OIP.zjHf3120-TeVF_c_1A7a7gHaHa?pid=ImgDet&w=203&h=203&c=7",
     }
 ];
