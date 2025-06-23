@@ -3,41 +3,41 @@ const products = [
     {
         id: 1,
         name: "Red Tulips and Pink-and-White Lilies",
-        category: "Tulips & Lilies",
+        category: ["tulips", "lilies"],
         description: "Fresh and fragrant crimson roses to brighten your day.",
-        price: null,
+        price: 5.00,
         image: "img/Red_roses.jpg",
     },
     {
         id: 2,
         name: "Dahlia",
-        category: "Dahlias",
+        category: "dahlias",
         description: "Elegant and pure, this handcrafted white dahlia symbolizes grace and sincerity — a timeless gift for heartfelt occasions.",
-        price: null,
+        price: 5.00,
         image: "img/Dahlia.jpg",
     },
     {
         id: 3,
         name: "Gerbera",
-        category: "Gerberas",
+        category: "gerberas",
         description: "A vibrant medley of pastel gerberas handcrafted from soft felt — this bouquet brings cheerful charm and gentle elegance to any occasion.",
-        price: null,
+        price: 5.00,
         image: "img/Gerbera.jpg",
     },
     {
         id: 4,
         name: "Lily",
-        category: "Lilies",
+        category: "lilies",
         description: "Warm and refined, these handcrafted caramel lilies bring an earthy elegance — perfect for heartfelt moments and timeless gestures.",
-        price: null,
+        price: 5.00,
         image: "img/Lily.jpg",
     },
     {
         id: 5,
         name: "Satin Roses",
-        category: "Roses",
+        category: "roses",
         description: "A bouquet of deep red satin roses, radiating passion and elegance — perfect for anniversaries, special dates, or simply saying 'I love you'.",
-        price: null,
+        price: 5.00,
         image: "img/Satin_roses.jpg",
     },
     {
@@ -45,9 +45,9 @@ const products = [
         name: "Blue Forget-Me-Not Bunch",
         category: "Forget-Me-Nots",
         description: "Tiny and sweet, these handcrafted blue forget-me-nots add a touch of innocence and whimsy to any arrangement or craft project",
-        price: null,
+        price: 5.00,
         image: "img/Blue_Forget-Me-Not_Bunch.jpg",
-    }
+    },
 ];
 
 // Ratings data (persisted in localStorage)
@@ -142,7 +142,12 @@ function renderProducts(filterCategory = 'all') {
     let filteredProducts = products;
 
     if (filterCategory !== 'all') {
-        filteredProducts = products.filter(p => p.category === filterCategory);
+        filteredProducts = products.filter(p => {
+            if (Array.isArray(p.category)) {
+                return p.category.includes(filterCategory);
+            }
+            return p.category === filterCategory;
+        });
     }
 
     filteredProducts.forEach(p => {
