@@ -13,7 +13,7 @@ const products = [
         name: "Dahlia",
         category: "dahlias",
         description: "Elegant and pure, this handcrafted white dahlia symbolizes grace and sincerity — a timeless gift for heartfelt occasions.",
-        price: "Inquire for price",
+        price: "Price varies",
         image: "img/Dahlia.jpg",
     },
     {
@@ -21,7 +21,7 @@ const products = [
         name: "Gerbera",
         category: "gerberas",
         description: "A vibrant medley of pastel gerberas handcrafted from soft felt — this bouquet brings cheerful charm and gentle elegance to any occasion.",
-        price: "Starts at $5",
+        price: "Price varies",
         image: "img/Gerbera.jpg",
     },
     {
@@ -29,7 +29,7 @@ const products = [
         name: "Lily",
         category: "lilies",
         description: "Warm and refined, these handcrafted caramel lilies bring an earthy elegance — perfect for heartfelt moments and timeless gestures.",
-        price: "Price upon request",
+        price: "Price varies",
         image: "img/Lily.jpg",
     },
     {
@@ -37,7 +37,7 @@ const products = [
         name: "Satin Roses",
         category: "roses",
         description: "A bouquet of deep red satin roses, radiating passion and elegance — perfect for anniversaries, special dates, or simply saying 'I love you'.",
-        price: "Inquire for price",
+        price: "Price varies",
         image: "img/Satin_roses.jpg",
     },
     {
